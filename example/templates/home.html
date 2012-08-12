@@ -1,0 +1,12 @@
+<h1>Create/Bind Account</h1>
+<p>{% load weibo %}</p>
+<p>{% weibo_button %}</p>
+<hr/>
+<h1>Send Text/Pic</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+        {% csrf_token %}
+        <textarea cols='30' rows='4' name='text'></textarea>
+        <input type="file" name="pic" value="" />
+        <button>Submit</button>
+    </form>
+                                    
