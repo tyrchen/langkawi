@@ -137,9 +137,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialregistration',
-    'socialregistration.contrib.weibo',
-    'socialregistration.contrib.qq',
+    'lankawi',
+    'lankawi.contrib.weibo',
+    'lankawi.contrib.qq',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

@@ -1,0 +1,3 @@
+django
+requests
+requests_oauth2
