@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.weibo.views import WeiboRedirect, \
+from langkawi.contrib.weibo.views import WeiboRedirect, \
     WeiboCallback, WeiboSetup
 urlpatterns = patterns('',
     url('^redirect/$', WeiboRedirect.as_view(), name='redirect'),

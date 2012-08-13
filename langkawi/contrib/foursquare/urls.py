@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.foursquare.views import FoursquareRedirect, \
+from langkawi.contrib.foursquare.views import FoursquareRedirect, \
     FoursquareCallback, FoursquareSetup
 
  

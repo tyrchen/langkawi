@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.tumblr.views import TumblrRedirect, \
+from langkawi.contrib.tumblr.views import TumblrRedirect, \
     TumblrCallback, TumblrSetup
 
 

@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.github.views import GithubRedirect, \
+from langkawi.contrib.github.views import GithubRedirect, \
     GithubCallback, GithubSetup
  
 urlpatterns = patterns('',

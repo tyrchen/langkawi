@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from socialregistration.contrib.github.models import GithubProfile
+from langkawi.contrib.github.models import GithubProfile
 from django.contrib.auth.backends import ModelBackend
 
 

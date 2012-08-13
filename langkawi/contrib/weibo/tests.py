@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from socialregistration.contrib.weibo.models import WeiboProfile
-from socialregistration.tests import TemplateTagTest, OAuth2Test
+from langkawi.contrib.weibo.models import WeiboProfile
+from langkawi.tests import TemplateTagTest, OAuth2Test
 import json
 
 
@@ -15,13 +15,13 @@ class TestInstagram(OAuth2Test, TestCase):
     profile = WeiboProfile
 
     def get_redirect_url(self):
-        return reverse('socialregistration:weibo:redirect')
+        return reverse('langkawi:weibo:redirect')
 
     def get_callback_url(self):
-        return reverse('socialregistration:weibo:callback')
+        return reverse('langkawi:weibo:callback')
 
     def get_setup_callback_url(self):
-        return reverse('socialregistration:weibo:setup')
+        return reverse('langkawi:weibo:setup')
 
     def get_callback_mock_response(self, *args, **kwargs):
         return {'status': '200'}, json.dumps({
@@ -43,4 +43,4 @@ class TestInstagram(OAuth2Test, TestCase):
 
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.weibo.auth.InstagramAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.weibo.auth.InstagramAuth' in settings.AUTHENTICATION_BACKENDS)

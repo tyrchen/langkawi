@@ -9,34 +9,34 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding model 'FacebookProfile'
-        db.create_table('socialregistration_facebookprofile', (
+        db.create_table('langkawi_facebookprofile', (
             ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
             ('uid', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
-        db.send_create_signal('socialregistration', ['FacebookProfile'])
+        db.send_create_signal('langkawi', ['FacebookProfile'])
 
         # Adding model 'TwitterProfile'
-        db.create_table('socialregistration_twitterprofile', (
+        db.create_table('langkawi_twitterprofile', (
             ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('twitter_id', self.gf('django.db.models.fields.PositiveIntegerField')()),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
-        db.send_create_signal('socialregistration', ['TwitterProfile'])
+        db.send_create_signal('langkawi', ['TwitterProfile'])
 
         # Adding model 'OpenIDProfile'
-        db.create_table('socialregistration_openidprofile', (
+        db.create_table('langkawi_openidprofile', (
             ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('identity', self.gf('django.db.models.fields.TextField')()),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
         ))
-        db.send_create_signal('socialregistration', ['OpenIDProfile'])
+        db.send_create_signal('langkawi', ['OpenIDProfile'])
 
         # Adding model 'OpenIDStore'
-        db.create_table('socialregistration_openidstore', (
+        db.create_table('langkawi_openidstore', (
             ('handle', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('issued', self.gf('django.db.models.fields.IntegerField')()),
             ('server_url', self.gf('django.db.models.fields.CharField')(max_length=255)),
@@ -46,35 +46,35 @@ class Migration(SchemaMigration):
             ('lifetime', self.gf('django.db.models.fields.IntegerField')()),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
         ))
-        db.send_create_signal('socialregistration', ['OpenIDStore'])
+        db.send_create_signal('langkawi', ['OpenIDStore'])
 
         # Adding model 'OpenIDNonce'
-        db.create_table('socialregistration_openidnonce', (
+        db.create_table('langkawi_openidnonce', (
             ('timestamp', self.gf('django.db.models.fields.IntegerField')()),
             ('date_created', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('salt', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('server_url', self.gf('django.db.models.fields.CharField')(max_length=255)),
         ))
-        db.send_create_signal('socialregistration', ['OpenIDNonce'])
+        db.send_create_signal('langkawi', ['OpenIDNonce'])
     
     
     def backwards(self, orm):
         
         # Deleting model 'FacebookProfile'
-        db.delete_table('socialregistration_facebookprofile')
+        db.delete_table('langkawi_facebookprofile')
 
         # Deleting model 'TwitterProfile'
-        db.delete_table('socialregistration_twitterprofile')
+        db.delete_table('langkawi_twitterprofile')
 
         # Deleting model 'OpenIDProfile'
-        db.delete_table('socialregistration_openidprofile')
+        db.delete_table('langkawi_openidprofile')
 
         # Deleting model 'OpenIDStore'
-        db.delete_table('socialregistration_openidstore')
+        db.delete_table('langkawi_openidstore')
 
         # Deleting model 'OpenIDNonce'
-        db.delete_table('socialregistration_openidnonce')
+        db.delete_table('langkawi_openidnonce')
     
     
     models = {
@@ -120,14 +120,14 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'socialregistration.facebookprofile': {
+        'langkawi.facebookprofile': {
             'Meta': {'object_name': 'FacebookProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'uid': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
-        'socialregistration.openidnonce': {
+        'langkawi.openidnonce': {
             'Meta': {'object_name': 'OpenIDNonce'},
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -135,14 +135,14 @@ class Migration(SchemaMigration):
             'server_url': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'timestamp': ('django.db.models.fields.IntegerField', [], {})
         },
-        'socialregistration.openidprofile': {
+        'langkawi.openidprofile': {
             'Meta': {'object_name': 'OpenIDProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'identity': ('django.db.models.fields.TextField', [], {}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']"})
         },
-        'socialregistration.openidstore': {
+        'langkawi.openidstore': {
             'Meta': {'object_name': 'OpenIDStore'},
             'assoc_type': ('django.db.models.fields.TextField', [], {}),
             'handle': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
@@ -153,7 +153,7 @@ class Migration(SchemaMigration):
             'server_url': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
         },
-        'socialregistration.twitterprofile': {
+        'langkawi.twitterprofile': {
             'Meta': {'object_name': 'TwitterProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
@@ -162,4 +162,4 @@ class Migration(SchemaMigration):
         }
     }
     
-    complete_apps = ['socialregistration']
+    complete_apps = ['langkawi']

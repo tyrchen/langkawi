@@ -9,43 +9,43 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         
         # Adding model 'LinkedInProfile'
-        db.create_table('socialregistration_linkedinprofile', (
+        db.create_table('langkawi_linkedinprofile', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], unique=True)),
             ('site', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sites.Site'])),
             ('linkedin_id', self.gf('django.db.models.fields.CharField')(max_length=25)),
         ))
-        db.send_create_signal('socialregistration', ['LinkedInProfile'])
+        db.send_create_signal('langkawi', ['LinkedInProfile'])
 
         # Adding model 'LinkedInRequestToken'
-        db.create_table('socialregistration_linkedinrequesttoken', (
+        db.create_table('langkawi_linkedinrequesttoken', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profile', self.gf('django.db.models.fields.related.OneToOneField')(related_name='request_token', unique=True, to=orm['socialregistration.LinkedInProfile'])),
+            ('profile', self.gf('django.db.models.fields.related.OneToOneField')(related_name='request_token', unique=True, to=orm['langkawi.LinkedInProfile'])),
             ('oauth_token', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('oauth_token_secret', self.gf('django.db.models.fields.CharField')(max_length=80)),
         ))
-        db.send_create_signal('socialregistration', ['LinkedInRequestToken'])
+        db.send_create_signal('langkawi', ['LinkedInRequestToken'])
 
         # Adding model 'LinkedInAccessToken'
-        db.create_table('socialregistration_linkedinaccesstoken', (
+        db.create_table('langkawi_linkedinaccesstoken', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('profile', self.gf('django.db.models.fields.related.OneToOneField')(related_name='access_token', unique=True, to=orm['socialregistration.LinkedInProfile'])),
+            ('profile', self.gf('django.db.models.fields.related.OneToOneField')(related_name='access_token', unique=True, to=orm['langkawi.LinkedInProfile'])),
             ('oauth_token', self.gf('django.db.models.fields.CharField')(max_length=80)),
             ('oauth_token_secret', self.gf('django.db.models.fields.CharField')(max_length=80)),
         ))
-        db.send_create_signal('socialregistration', ['LinkedInAccessToken'])
+        db.send_create_signal('langkawi', ['LinkedInAccessToken'])
 
 
     def backwards(self, orm):
         
         # Deleting model 'LinkedInProfile'
-        db.delete_table('socialregistration_linkedinprofile')
+        db.delete_table('langkawi_linkedinprofile')
 
         # Deleting model 'LinkedInRequestToken'
-        db.delete_table('socialregistration_linkedinrequesttoken')
+        db.delete_table('langkawi_linkedinrequesttoken')
 
         # Deleting model 'LinkedInAccessToken'
-        db.delete_table('socialregistration_linkedinaccesstoken')
+        db.delete_table('langkawi_linkedinaccesstoken')
 
 
     models = {
@@ -91,41 +91,41 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'socialregistration.facebookaccesstoken': {
+        'langkawi.facebookaccesstoken': {
             'Meta': {'object_name': 'FacebookAccessToken'},
             'access_token': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['socialregistration.FacebookProfile']"})
+            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['langkawi.FacebookProfile']"})
         },
-        'socialregistration.facebookprofile': {
+        'langkawi.facebookprofile': {
             'Meta': {'object_name': 'FacebookProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'uid': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
         },
-        'socialregistration.linkedinaccesstoken': {
+        'langkawi.linkedinaccesstoken': {
             'Meta': {'object_name': 'LinkedInAccessToken'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'oauth_token': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
             'oauth_token_secret': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['socialregistration.LinkedInProfile']"})
+            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['langkawi.LinkedInProfile']"})
         },
-        'socialregistration.linkedinprofile': {
+        'langkawi.linkedinprofile': {
             'Meta': {'object_name': 'LinkedInProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'linkedin_id': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
         },
-        'socialregistration.linkedinrequesttoken': {
+        'langkawi.linkedinrequesttoken': {
             'Meta': {'object_name': 'LinkedInRequestToken'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'oauth_token': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
             'oauth_token_secret': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'request_token'", 'unique': 'True', 'to': "orm['socialregistration.LinkedInProfile']"})
+            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'request_token'", 'unique': 'True', 'to': "orm['langkawi.LinkedInProfile']"})
         },
-        'socialregistration.openidnonce': {
+        'langkawi.openidnonce': {
             'Meta': {'object_name': 'OpenIDNonce'},
             'date_created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -133,14 +133,14 @@ class Migration(SchemaMigration):
             'server_url': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'timestamp': ('django.db.models.fields.IntegerField', [], {})
         },
-        'socialregistration.openidprofile': {
+        'langkawi.openidprofile': {
             'Meta': {'object_name': 'OpenIDProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'identity': ('django.db.models.fields.TextField', [], {}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
         },
-        'socialregistration.openidstore': {
+        'langkawi.openidstore': {
             'Meta': {'object_name': 'OpenIDStore'},
             'assoc_type': ('django.db.models.fields.TextField', [], {}),
             'handle': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
@@ -151,27 +151,27 @@ class Migration(SchemaMigration):
             'server_url': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"})
         },
-        'socialregistration.twitteraccesstoken': {
+        'langkawi.twitteraccesstoken': {
             'Meta': {'object_name': 'TwitterAccessToken'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'oauth_token': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
             'oauth_token_secret': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['socialregistration.TwitterProfile']"})
+            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'access_token'", 'unique': 'True', 'to': "orm['langkawi.TwitterProfile']"})
         },
-        'socialregistration.twitterprofile': {
+        'langkawi.twitterprofile': {
             'Meta': {'object_name': 'TwitterProfile'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'site': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['sites.Site']"}),
             'twitter_id': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'unique': 'True'})
         },
-        'socialregistration.twitterrequesttoken': {
+        'langkawi.twitterrequesttoken': {
             'Meta': {'object_name': 'TwitterRequestToken'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'oauth_token': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
             'oauth_token_secret': ('django.db.models.fields.CharField', [], {'max_length': '80'}),
-            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'request_token'", 'unique': 'True', 'to': "orm['socialregistration.TwitterProfile']"})
+            'profile': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'request_token'", 'unique': 'True', 'to': "orm['langkawi.TwitterProfile']"})
         }
     }
 
-    complete_apps = ['socialregistration']
+    complete_apps = ['langkawi']

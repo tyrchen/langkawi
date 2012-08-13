@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from socialregistration.clients.oauth import OAuth
-from socialregistration.settings import SESSION_KEY
+from langkawi.clients.oauth import OAuth
+from langkawi.settings import SESSION_KEY
 import urlparse
 
 class Twitter(OAuth):
@@ -17,10 +17,10 @@ class Twitter(OAuth):
         if self.is_https():
             return urlparse.urljoin(
                 'https://%s' % Site.objects.get_current().domain,
-                reverse('socialregistration:twitter:callback'))
+                reverse('langkawi:twitter:callback'))
         return urlparse.urljoin(
             'http://%s' % Site.objects.get_current().domain,
-            reverse('socialregistration:twitter:callback'))
+            reverse('langkawi:twitter:callback'))
     
     def get_user_info(self):
         return self._access_token_dict

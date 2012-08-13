@@ -1,6 +1,6 @@
 from django import template
-from socialregistration.templatetags import button
+from langkawi.templatetags import button
 
 register = template.Library()
 
-register.tag('linkedin_button', button('socialregistration/linkedin/linkedin_button.html'))
+register.tag('linkedin_button', button('langkawi/linkedin/linkedin_button.html'))

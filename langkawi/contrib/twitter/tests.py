@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from socialregistration.contrib.twitter.models import TwitterProfile
-from socialregistration.tests import TemplateTagTest, OAuthTest
+from langkawi.contrib.twitter.models import TwitterProfile
+from langkawi.tests import TemplateTagTest, OAuthTest
 import urllib
 
 
@@ -14,13 +14,13 @@ class TestTwitter(OAuthTest, TestCase):
     profile = TwitterProfile
 
     def get_redirect_url(self):
-        return reverse('socialregistration:twitter:redirect')
+        return reverse('langkawi:twitter:redirect')
     
     def get_callback_url(self):
-        return reverse('socialregistration:twitter:callback')
+        return reverse('langkawi:twitter:callback')
 
     def get_setup_callback_url(self):
-        return reverse('socialregistration:twitter:setup')
+        return reverse('langkawi:twitter:setup')
     
     def get_redirect_mock_response(self, *args, **kwargs):
         return {'status': '200'}, urllib.urlencode({
@@ -42,4 +42,4 @@ class TestTwitter(OAuthTest, TestCase):
 
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.twitter.auth.TwitterAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.twitter.auth.TwitterAuth' in settings.AUTHENTICATION_BACKENDS)

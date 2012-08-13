@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from socialregistration.contrib.tumblr.models import TumblrProfile
-from socialregistration.tests import TemplateTagTest, OAuthTest
+from langkawi.contrib.tumblr.models import TumblrProfile
+from langkawi.tests import TemplateTagTest, OAuthTest
 import json
 import urllib
 
@@ -15,13 +15,13 @@ class TestTumblr(OAuthTest, TestCase):
     profile = TumblrProfile
     
     def get_redirect_url(self):
-        return reverse('socialregistration:tumblr:redirect')
+        return reverse('langkawi:tumblr:redirect')
     
     def get_callback_url(self):
-        return reverse('socialregistration:tumblr:callback')
+        return reverse('langkawi:tumblr:callback')
 
     def get_setup_callback_url(self):
-        return reverse('socialregistration:tumblr:setup')
+        return reverse('langkawi:tumblr:setup')
     
     def get_redirect_mock_response(self, *args, **kwargs):
         return {'status': '200'}, urllib.urlencode({
@@ -44,4 +44,4 @@ class TestTumblr(OAuthTest, TestCase):
 
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.tumblr.auth.TumblrAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.tumblr.auth.TumblrAuth' in settings.AUTHENTICATION_BACKENDS)

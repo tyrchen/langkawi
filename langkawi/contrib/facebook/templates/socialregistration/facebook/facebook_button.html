@@ -1,4 +1,4 @@
-<form class="connect-button" name="login" method="post" action="{% url socialregistration:facebook:redirect %}">
+<form class="connect-button" name="login" method="post" action="{% url langkawi:facebook:redirect %}">
 {% csrf_token %}
 {% if next %}
     <input type="hidden" name="next" value="{{ next }}" />

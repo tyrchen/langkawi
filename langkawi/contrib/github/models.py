@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
-from socialregistration.signals import connect
+from langkawi.signals import connect
 
 class GithubProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
@@ -33,4 +33,4 @@ def save_github_token(sender, user, profile, client, **kwargs):
 
 
 connect.connect(save_github_token, sender=GithubProfile,
-    dispatch_uid='socialregistration_github_token')
+    dispatch_uid='langkawi_github_token')

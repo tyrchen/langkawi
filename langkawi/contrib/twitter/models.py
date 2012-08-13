@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
-from socialregistration.signals import connect
+from langkawi.signals import connect
 
 class TwitterProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
@@ -47,4 +47,4 @@ def save_twitter_token(sender, user, profile, client, **kwargs):
         oauth_token_secret=client.get_access_token().secret)
     
 connect.connect(save_twitter_token, sender=TwitterProfile,
-    dispatch_uid='socialregistration_twitter_token')
+    dispatch_uid='langkawi_twitter_token')

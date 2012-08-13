@@ -2,10 +2,10 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import View
-from socialregistration.contrib.openid.client import OpenIDClient
-from socialregistration.contrib.openid.models import OpenIDProfile
-from socialregistration.mixins import SocialRegistration
-from socialregistration.views import SetupCallback
+from langkawi.contrib.openid.client import OpenIDClient
+from langkawi.contrib.openid.models import OpenIDProfile
+from langkawi.mixins import SocialRegistration
+from langkawi.views import SetupCallback
 
 class OpenIDRedirect(SocialRegistration, View):
     client = OpenIDClient
@@ -24,7 +24,7 @@ class OpenIDRedirect(SocialRegistration, View):
         return HttpResponseRedirect(client.get_redirect_url())
 
 class OpenIDCallback(SocialRegistration, View):
-    template_name = 'socialregistration/openid/openid.html'
+    template_name = 'langkawi/openid/openid.html'
     profile = OpenIDProfile
     client = OpenIDClient
     
@@ -45,10 +45,10 @@ class OpenIDCallback(SocialRegistration, View):
         # to the next view.
         request.session[self.get_client().get_session_key()] = client
         
-        return HttpResponseRedirect(reverse('socialregistration:openid:setup'))
+        return HttpResponseRedirect(reverse('langkawi:openid:setup'))
 
 class OpenIDSetup(SetupCallback):
-    template_name = 'socialregistration/openid/openid.html'
+    template_name = 'langkawi/openid/openid.html'
     profile = OpenIDProfile
     client = OpenIDClient
     

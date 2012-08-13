@@ -36,4 +36,4 @@ def save_qq_token(sender, user, profile, client, **kwargs):
 
 
 connect.connect(save_qq_token, sender=QQProfile,
-    dispatch_uid='socialregistration_qq_token')
+    dispatch_uid='langkawi_qq_token')

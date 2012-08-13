@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from socialregistration.contrib.weibo.client import Weibo
+from langkawi.contrib.weibo.client import Weibo
 from pprint import pprint
 
 def home(request):

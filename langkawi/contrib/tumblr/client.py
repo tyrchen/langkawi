@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from socialregistration.clients.oauth import OAuth
-from socialregistration.settings import SESSION_KEY
+from langkawi.clients.oauth import OAuth
+from langkawi.settings import SESSION_KEY
 import json
 import urlparse
 
@@ -18,10 +18,10 @@ class Tumblr(OAuth):
         if self.is_https():
             return urlparse.urljoin(
                 'https://%s' % Site.objects.get_current().domain,
-                reverse('socialregistration:tumblr:callback'))
+                reverse('langkawi:tumblr:callback'))
         return urlparse.urljoin(
             'http://%s' % Site.objects.get_current().domain,
-            reverse('socialregistration:tumblr:callback'))
+            reverse('langkawi:tumblr:callback'))
 
     def get_user_info(self):
         if self._user_info is None:

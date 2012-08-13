@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
-from socialregistration.signals import connect, login
+from langkawi.signals import connect, login
 
 class FacebookProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
@@ -34,6 +34,6 @@ def save_facebook_token(sender, user, profile, client, **kwargs):
         access_token=client.graph.access_token)
     
 connect.connect(save_facebook_token, sender=FacebookProfile,
-    dispatch_uid='socialregistration.facebook.connect')
+    dispatch_uid='langkawi.facebook.connect')
 login.connect(save_facebook_token, sender = FacebookProfile,
-    dispatch_uid = 'socialregistration.facebook.login')
+    dispatch_uid = 'langkawi.facebook.login')

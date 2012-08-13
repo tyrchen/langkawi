@@ -1,7 +1,7 @@
 import base64
 from openid.association import Association
 from openid.store.interface import OpenIDStore
-from socialregistration.contrib.openid.models import (OpenIDNonce,
+from langkawi.contrib.openid.models import (OpenIDNonce,
     OpenIDStore as OpenIDStoreModel)
 
 class OpenIDStore(OpenIDStore):

@@ -18,4 +18,4 @@ class TestTemplateTag(TestCase):
 
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.openid.auth.OpenIDAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.openid.auth.OpenIDAuth' in settings.AUTHENTICATION_BACKENDS)

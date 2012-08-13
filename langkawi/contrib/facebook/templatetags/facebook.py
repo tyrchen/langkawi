@@ -1,7 +1,7 @@
 from django import template
 
-from socialregistration.templatetags import button
+from langkawi.templatetags import button
 
 register = template.Library()
 
-register.tag('facebook_button', button('socialregistration/facebook/facebook_button.html'))
+register.tag('facebook_button', button('langkawi/facebook/facebook_button.html'))

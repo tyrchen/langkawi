@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from socialregistration.contrib.linkedin.models import LinkedInProfile
-from socialregistration.tests import TemplateTagTest, OAuthTest
+from langkawi.contrib.linkedin.models import LinkedInProfile
+from langkawi.tests import TemplateTagTest, OAuthTest
 import json
 import urllib
 
@@ -15,13 +15,13 @@ class TestLinkedIn(OAuthTest, TestCase):
     profile = LinkedInProfile
     
     def get_redirect_url(self):
-        return reverse('socialregistration:linkedin:redirect')
+        return reverse('langkawi:linkedin:redirect')
     
     def get_callback_url(self):
-        return reverse('socialregistration:linkedin:callback')
+        return reverse('langkawi:linkedin:callback')
 
     def get_setup_callback_url(self):
-        return reverse('socialregistration:linkedin:setup')
+        return reverse('langkawi:linkedin:setup')
     
     def get_redirect_mock_response(self, *args, **kwargs):
         return {'status': '200'}, urllib.urlencode({
@@ -43,4 +43,4 @@ class TestLinkedIn(OAuthTest, TestCase):
 
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.linkedin.auth.LinkedInAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.linkedin.auth.LinkedInAuth' in settings.AUTHENTICATION_BACKENDS)

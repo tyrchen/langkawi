@@ -17,5 +17,5 @@ urlpatterns = patterns('',
     url(r'^$','views.home', name='home'),
     url(r'^upload', 'views.upload', name='upload'),
     url(r'^accounts/profile/', 'views.profile'),
-    url(r'^social/', include('langkawi.urls', namespace = 'socialregistration'))
+    url(r'^social/', include('langkawi.urls', namespace = 'langkawi'))
 )

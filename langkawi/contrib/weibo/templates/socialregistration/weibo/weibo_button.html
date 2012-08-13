@@ -1,4 +1,4 @@
-<form action="{% url socialregistration:weibo:redirect %}" method="post">
+<form action="{% url langkawi:weibo:redirect %}" method="post">
     {% csrf_token %}
     {% if next %}
         <input type="hidden" name="next" value="{{ next }}" />

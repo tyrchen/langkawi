@@ -4,17 +4,17 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
-from socialregistration.clients.oauth import OAuthError
-from socialregistration.mixins import SocialRegistration
+from langkawi.clients.oauth import OAuthError
+from langkawi.mixins import SocialRegistration
 from pprint import pprint
 
 GENERATE_USERNAME = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME', False)
 
 USERNAME_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME_FUNCTION',
-    'socialregistration.utils.generate_username')
+    'langkawi.utils.generate_username')
 
 FORM_CLASS = getattr(settings, 'SOCIALREGISTRATION_SETUP_FORM',
-    'socialregistration.forms.UserForm')
+    'langkawi.forms.UserForm')
 
 INITAL_DATA_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_INITIAL_DATA_FUNCTION',
     None)
@@ -24,7 +24,7 @@ class Setup(SocialRegistration, View):
     """
     Setup view to create new Django users from third party APIs.
     """
-    template_name = 'socialregistration/setup.html'
+    template_name = 'langkawi/setup.html'
 
     def get_form(self):
         """
@@ -271,7 +271,7 @@ class SetupCallback(SocialRegistration, View):
             self.store_profile(request, profile)
             self.store_client(request, client)
 
-            return HttpResponseRedirect(reverse('socialregistration:setup'))
+            return HttpResponseRedirect(reverse('langkawi:setup'))
 
         # Inactive user - displaying / redirect to the appropriate place.
         if not user.is_active:

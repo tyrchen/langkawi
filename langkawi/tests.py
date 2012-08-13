@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from oauth2 import Client
-from socialregistration.signals import login, connect
+from langkawi.signals import login, connect
 import mock
 import urllib
 import urlparse
@@ -132,7 +132,7 @@ class OAuthTest(object):
         self.callback()
         response = self.setup_callback()
         self.assertEqual(302, response.status_code, response.content)
-        self.assertEqual(urlparse.urlparse(response['Location']).path, reverse('socialregistration:setup'))
+        self.assertEqual(urlparse.urlparse(response['Location']).path, reverse('langkawi:setup'))
     
     def test_setup_callback_should_redirect_a_logged_in_user(self):
         self.create_user()
@@ -142,7 +142,7 @@ class OAuthTest(object):
         self.callback()
         response = self.setup_callback()
         self.assertEqual(302, response.status_code, response.content)
-        self.assertNotEqual(urlparse.urlparse(response['Location']).path, reverse('socialregistration:setup'))
+        self.assertNotEqual(urlparse.urlparse(response['Location']).path, reverse('langkawi:setup'))
 
     def test_connected_user_should_be_logged_in(self):
         user = self.create_user()
@@ -230,13 +230,13 @@ class OAuth2Test(OAuthTest):
         response = self.client.post(self.get_redirect_url())
         return response
     
-    @mock.patch('socialregistration.clients.oauth.OAuth2.request')
+    @mock.patch('langkawi.clients.oauth.OAuth2.request')
     def callback(self, MockRequest):
         MockRequest.side_effect = get_mock_func(self.get_callback_mock_response)
         response = self.client.get(self.get_callback_url(), {'code': 'abc'})
         return response
     
-    @mock.patch('socialregistration.clients.oauth.OAuth2.request')
+    @mock.patch('langkawi.clients.oauth.OAuth2.request')
     def setup_callback(self, MockRequest):
         MockRequest.side_effect = get_mock_func(self.get_setup_callback_mock_response)
         response = self.client.get(self.get_setup_callback_url())

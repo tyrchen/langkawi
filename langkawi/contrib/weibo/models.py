@@ -36,4 +36,4 @@ def save_weibo_token(sender, user, profile, client, **kwargs):
 
 
 connect.connect(save_weibo_token, sender=WeiboProfile,
-    dispatch_uid='socialregistration_weibo_token')
+    dispatch_uid='langkawi_weibo_token')

@@ -1,4 +1,4 @@
 from django.contrib import admin
-from socialregistration.contrib.twitter.models import TwitterProfile
+from langkawi.contrib.twitter.models import TwitterProfile
 
 admin.site.register(TwitterProfile)

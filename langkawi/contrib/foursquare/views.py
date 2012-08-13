@@ -1,23 +1,23 @@
 from django.core.urlresolvers import reverse
-from socialregistration.contrib.foursquare.client import Foursquare
-from socialregistration.contrib.foursquare.models import FoursquareProfile
-from socialregistration.views import OAuthRedirect, OAuthCallback, SetupCallback
+from langkawi.contrib.foursquare.client import Foursquare
+from langkawi.contrib.foursquare.models import FoursquareProfile
+from langkawi.views import OAuthRedirect, OAuthCallback, SetupCallback
 
 class FoursquareRedirect(OAuthRedirect):
     client = Foursquare
-    template_name = 'socialregistration/foursquare/foursquare.html'
+    template_name = 'langkawi/foursquare/foursquare.html'
 
 class FoursquareCallback(OAuthCallback):
     client = Foursquare
-    template_name = 'socialregistration/foursquare/foursquare.html'
+    template_name = 'langkawi/foursquare/foursquare.html'
     
     def get_redirect(self):
-        return reverse('socialregistration:foursquare:setup')
+        return reverse('langkawi:foursquare:setup')
 
 class FoursquareSetup(SetupCallback):
     client = Foursquare
     profile = FoursquareProfile
-    template_name = 'socialregistration/foursquare/foursquare.html'
+    template_name = 'langkawi/foursquare/foursquare.html'
     
     def get_lookup_kwargs(self, request, client):
         return {'foursquare': client.get_user_info()['id']}

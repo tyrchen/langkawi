@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.sites.models import Site
-from socialregistration.contrib.twitter.models import TwitterProfile
+from langkawi.contrib.twitter.models import TwitterProfile
 
 
 class TwitterAuth(ModelBackend):

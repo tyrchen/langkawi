@@ -6,8 +6,8 @@ from django.utils import importlib
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 
-from socialregistration import signals
-from socialregistration.settings import SESSION_KEY
+from langkawi import signals
+from langkawi.settings import SESSION_KEY
 
 
 class CommonMixin(TemplateResponseMixin):

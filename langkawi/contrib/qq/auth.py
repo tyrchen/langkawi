@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from socialregistration.contrib.qq.models import QQProfile
+from langkawi.contrib.qq.models import QQProfile
 from django.contrib.auth.backends import ModelBackend
 
 

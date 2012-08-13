@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
-from socialregistration.clients.oauth import OAuth2
-from socialregistration.settings import SESSION_KEY
+from langkawi.clients.oauth import OAuth2
+from langkawi.settings import SESSION_KEY
 import json
 from pprint import pprint
 
@@ -21,9 +21,9 @@ class Weibo(OAuth2):
     def get_callback_url(self):
         if self.is_https():
             return 'https://%s%s' % (Site.objects.get_current().domain,
-                reverse('socialregistration:weibo:callback'))
+                reverse('langkawi:weibo:callback'))
         return 'http://%s%s' % (Site.objects.get_current().domain,
-            reverse('socialregistration:weibo:callback'))
+            reverse('langkawi:weibo:callback'))
 
     def get_access_token(self, **params):
         return super(Weibo, self).get_access_token(**params)

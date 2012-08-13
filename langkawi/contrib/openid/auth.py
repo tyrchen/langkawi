@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.sites.models import Site
-from socialregistration.contrib.openid.models import OpenIDProfile
+from langkawi.contrib.openid.models import OpenIDProfile
 
 
 

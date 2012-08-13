@@ -1,6 +1,6 @@
 from django import template
-from socialregistration.templatetags import button
+from langkawi.templatetags import button
 
 register = template.Library()
 
-register.tag('github_button', button('socialregistration/github/github_button.html'))
+register.tag('github_button', button('langkawi/github/github_button.html'))

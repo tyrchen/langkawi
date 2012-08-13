@@ -1,6 +1,6 @@
 from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
-from socialregistration.clients import Client
+from langkawi.clients import Client
 import requests
 import time
 #import oauth2 as oauth

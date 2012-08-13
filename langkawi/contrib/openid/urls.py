@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.openid.views import OpenIDRedirect, \
+from langkawi.contrib.openid.views import OpenIDRedirect, \
     OpenIDCallback, OpenIDSetup
 
 urlpatterns = patterns('',

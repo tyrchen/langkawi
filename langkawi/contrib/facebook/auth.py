@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.sites.models import Site
-from socialregistration.contrib.facebook.models import FacebookProfile
+from langkawi.contrib.facebook.models import FacebookProfile
 
 
 class FacebookAuth(ModelBackend):

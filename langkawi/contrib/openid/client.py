@@ -1,9 +1,9 @@
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from openid.consumer import consumer
-from socialregistration.clients import Client
-from socialregistration.contrib.openid.storage import OpenIDStore
-from socialregistration.settings import SESSION_KEY
+from langkawi.clients import Client
+from langkawi.contrib.openid.storage import OpenIDStore
+from langkawi.settings import SESSION_KEY
 import urlparse
 
 class OpenIDClient(Client):
@@ -19,7 +19,7 @@ class OpenIDClient(Client):
     
     def get_callback_url(self):
         return urlparse.urljoin(self.get_realm(),
-            reverse('socialregistration:openid:callback'))
+            reverse('langkawi:openid:callback'))
     
     def get_redirect_url(self):
         auth_request = self.consumer.begin(self.endpoint_url)

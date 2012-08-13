@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.facebook.views import FacebookSetup, \
+from langkawi.contrib.facebook.views import FacebookSetup, \
     FacebookRedirect, FacebookCallback
  
 urlpatterns = patterns('',

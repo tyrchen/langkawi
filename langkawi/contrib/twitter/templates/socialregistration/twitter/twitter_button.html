@@ -1,4 +1,4 @@
-<form class="connect-button" name="login" method="post" action="{% url socialregistration:twitter:redirect %}">
+<form class="connect-button" name="login" method="post" action="{% url langkawi:twitter:redirect %}">
 {% csrf_token %}
 {% if next %}
     <input type="hidden" name="next" value="{{ next }}" />

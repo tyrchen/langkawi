@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from socialregistration.contrib.weibo.models import WeiboProfile
+from langkawi.contrib.weibo.models import WeiboProfile
 from django.contrib.auth.backends import ModelBackend
 
 

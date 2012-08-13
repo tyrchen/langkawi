@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.instagram.views import InstagramRedirect, \
+from langkawi.contrib.instagram.views import InstagramRedirect, \
     InstagramCallback, InstagramSetup
  
 urlpatterns = patterns('',

@@ -1,7 +1,7 @@
 
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.contrib.twitter.views import TwitterRedirect, \
+from langkawi.contrib.twitter.views import TwitterRedirect, \
     TwitterCallback, TwitterSetup
 
 urlpatterns = patterns('',

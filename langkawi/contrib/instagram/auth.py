@@ -1,5 +1,5 @@
 from django.contrib.sites.models import Site
-from socialregistration.contrib.instagram.models import InstagramProfile
+from langkawi.contrib.instagram.models import InstagramProfile
 from django.contrib.auth.backends import ModelBackend
 
 

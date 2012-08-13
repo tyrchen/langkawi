@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-from socialregistration.contrib.foursquare.models import FoursquareProfile
-from socialregistration.tests import TemplateTagTest, OAuth2Test
+from langkawi.contrib.foursquare.models import FoursquareProfile
+from langkawi.tests import TemplateTagTest, OAuth2Test
 import json
 
 
@@ -14,13 +14,13 @@ class TestFoursquare(OAuth2Test, TestCase):
     profile = FoursquareProfile
 
     def get_redirect_url(self):
-        return reverse('socialregistration:foursquare:redirect')
+        return reverse('langkawi:foursquare:redirect')
     
     def get_callback_url(self):
-        return reverse('socialregistration:foursquare:callback')
+        return reverse('langkawi:foursquare:callback')
 
     def get_setup_callback_url(self):
-        return reverse('socialregistration:foursquare:setup')
+        return reverse('langkawi:foursquare:setup')
     
     def get_callback_mock_response(self, *args, **kwargs):
         return {'status': '200'}, json.dumps({
@@ -38,4 +38,4 @@ class TestFoursquare(OAuth2Test, TestCase):
     
 class TestAuthenticationBackend(TestCase):
     def test_authentication_backend_should_be_configured_in_settings(self):
-        self.assertTrue('socialregistration.contrib.foursquare.auth.FoursquareAuth' in settings.AUTHENTICATION_BACKENDS)
+        self.assertTrue('langkawi.contrib.foursquare.auth.FoursquareAuth' in settings.AUTHENTICATION_BACKENDS)

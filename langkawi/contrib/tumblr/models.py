@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
-from socialregistration.signals import connect
+from langkawi.signals import connect
 
 class TumblrProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
@@ -47,4 +47,4 @@ def save_tumblr_token(sender, user, profile, client, **kwargs):
         oauth_token_secret=client.get_access_token().secret)
 
 connect.connect(save_tumblr_token, sender=TumblrProfile,
-    dispatch_uid='socialregistration_tumblr_token')
+    dispatch_uid='langkawi_tumblr_token')

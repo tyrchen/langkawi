@@ -1,6 +1,6 @@
 from django import template
-from socialregistration.templatetags import button
+from langkawi.templatetags import button
 
 register = template.Library()
 
-register.tag('twitter_button', button('socialregistration/twitter/twitter_button.html'))
+register.tag('twitter_button', button('langkawi/twitter/twitter_button.html'))
