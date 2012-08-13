@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
-import lankawi
+import langkawi
 
 METADATA = dict(
-    name='lankawi',
-    version=lankawi.__version__,
+    name='langkawi',
+    version=langkawi.__version__,
     author='Jason Gao',
     author_email='gaopeng@tukeq.com',
     description='Django app providing registration through a variety of APIs',
     long_description=open('README.rst').read(),
-    url='http://github.com/tyrchen/lankawi',
+    url='http://github.com/tyrchen/langkawi',
     keywords='django weibo tencent renren douban oauth2',
     install_requires=['requests', 'requests_oauth2'],
     include_package_data=True,
