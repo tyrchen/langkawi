@@ -14,8 +14,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^$','socialsharing.views.home', name='home'),
-    url(r'^upload', 'socialsharing.views.upload', name='upload'),
-    url(r'^accounts/profile/', 'socialsharing.views.profile'),
-    url(r'^social/', include('socialregistration.urls', namespace = 'socialregistration'))
+    url(r'^$','views.home', name='home'),
+    url(r'^upload', 'views.upload', name='upload'),
+    url(r'^accounts/profile/', 'views.profile'),
+    url(r'^social/', include('langkawi.urls', namespace = 'socialregistration'))
 )

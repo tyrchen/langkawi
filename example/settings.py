@@ -1,5 +1,5 @@
 import os.path
-# Django settings for socialsharing project.
+# Django settings for langkawi project.
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -101,10 +101,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'socialsharing.urls'
+ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'socialsharing.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -126,8 +126,8 @@ QQ_REQUEST_PERMISSIONS = ''
 
 AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
-   'socialregistration.contrib.weibo.auth.WeiboAuth',
-   'socialregistration.contrib.qq.auth.QQAuth',
+   'langkawi.contrib.weibo.auth.WeiboAuth',
+   'langkawi.contrib.qq.auth.QQAuth',
 )
 
 INSTALLED_APPS = (

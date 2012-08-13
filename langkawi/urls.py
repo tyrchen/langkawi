@@ -1,57 +1,57 @@
 from django.conf import settings
 from django.conf.urls.defaults import *
-from socialregistration.views import Logout, Setup
+from views import Logout, Setup
 
 urlpatterns = patterns('',)
 
-if 'socialregistration.contrib.openid' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.openid' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^openid/', include('socialregistration.contrib.openid.urls',
+        url(r'^openid/', include('langkawi.contrib.openid.urls',
             namespace='openid')))
 
-if 'socialregistration.contrib.twitter' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.twitter' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^twitter/', include('socialregistration.contrib.twitter.urls',
+        url(r'^twitter/', include('langkawi.contrib.twitter.urls',
             namespace='twitter')))
 
-if 'socialregistration.contrib.linkedin' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.linkedin' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^linkedin/', include('socialregistration.contrib.linkedin.urls',
+        url(r'^linkedin/', include('langkawi.contrib.linkedin.urls',
             namespace='linkedin')))
 
-if 'socialregistration.contrib.facebook' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.facebook' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^facebook/', include('socialregistration.contrib.facebook.urls',
+        url(r'^facebook/', include('langkawi.contrib.facebook.urls',
             namespace='facebook')))
 
-if 'socialregistration.contrib.github' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.github' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^github/', include('socialregistration.contrib.github.urls',
+        url(r'^github/', include('langkawi.contrib.github.urls',
             namespace='github')))
 
-if 'socialregistration.contrib.foursquare' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.foursquare' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^foursquare/', include('socialregistration.contrib.foursquare.urls',
+        url(r'^foursquare/', include('langkawi.contrib.foursquare.urls',
             namespace='foursquare')))
 
-if 'socialregistration.contrib.tumblr' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.tumblr' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^tumblr/', include('socialregistration.contrib.tumblr.urls',
+        url(r'^tumblr/', include('langkawi.contrib.tumblr.urls',
             namespace='tumblr')))
 
-if 'socialregistration.contrib.instagram' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.instagram' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^instagram/', include('socialregistration.contrib.instagram.urls',
+        url(r'^instagram/', include('langkawi.contrib.instagram.urls',
             namespace='instagram')))
 
-if 'socialregistration.contrib.weibo' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.weibo' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^weibo/', include('socialregistration.contrib.weibo.urls',
+        url(r'^weibo/', include('langkawi.contrib.weibo.urls',
             namespace='weibo')))
 
-if 'socialregistration.contrib.qq' in settings.INSTALLED_APPS:
+if 'langkawi.contrib.qq' in settings.INSTALLED_APPS:
     urlpatterns = urlpatterns + patterns('',
-        url(r'^qq/', include('socialregistration.contrib.qq.urls',
+        url(r'^qq/', include('langkawi.contrib.qq.urls',
             namespace='qq')))
 
 urlpatterns = urlpatterns + patterns('',
