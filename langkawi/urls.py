@@ -54,6 +54,11 @@ if 'langkawi.contrib.qq' in settings.INSTALLED_APPS:
         url(r'^qq/', include('langkawi.contrib.qq.urls',
             namespace='qq')))
 
+if 'langkawi.contrib.renren' in settings.INSTALLED_APPS:
+    urlpatterns = urlpatterns + patterns('',
+        url(r'^renren/', include('langkawi.contrib.renren.urls',
+            namespace='renren')))
+
 urlpatterns = urlpatterns + patterns('',
     url(r'^setup/$', Setup.as_view(), name='setup'),
     url(r'^logout/$', Logout.as_view(), name='logout'),

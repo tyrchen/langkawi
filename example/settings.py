@@ -124,10 +124,15 @@ QQ_CLIENT_ID = '100269850'
 QQ_CLIENT_SECRET = 'b69db592eaf6b337504da09049f098d9'
 QQ_REQUEST_PERMISSIONS = ''
 
+RENREN_CLIENT_ID = '100269850'
+RENREN_CLIENT_SECRET = 'b69db592eaf6b337504da09049f098d9'
+RENREN_REQUEST_PERMISSIONS = ''
+
 AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
    'langkawi.contrib.weibo.auth.WeiboAuth',
    'langkawi.contrib.qq.auth.QQAuth',
+   'langkawi.contrib.renren.auth.RenrenAuth',
 )
 
 INSTALLED_APPS = (
@@ -140,6 +145,7 @@ INSTALLED_APPS = (
     'langkawi',
     'langkawi.contrib.weibo',
     'langkawi.contrib.qq',
+    'langkawi.contrib.renren',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
