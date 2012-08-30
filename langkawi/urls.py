@@ -59,6 +59,11 @@ if 'langkawi.contrib.renren' in settings.INSTALLED_APPS:
         url(r'^renren/', include('langkawi.contrib.renren.urls',
             namespace='renren')))
 
+if 'langkawi.contrib.renren' in settings.INSTALLED_APPS:
+    urlpatterns = urlpatterns + patterns('',
+        url(r'^douban/', include('langkawi.contrib.douban.urls',
+            namespace='douban')))
+
 urlpatterns = urlpatterns + patterns('',
     url(r'^setup/$', Setup.as_view(), name='setup'),
     url(r'^logout/$', Logout.as_view(), name='logout'),

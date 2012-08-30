@@ -124,17 +124,21 @@ QQ_CLIENT_ID = '100269850'
 QQ_CLIENT_SECRET = 'b69db592eaf6b337504da09049f098d9'
 QQ_REQUEST_PERMISSIONS = ''
 
-RENREN_CLIENT_ID = '100269850'
-RENREN_CLIENT_SECRET = 'b69db592eaf6b337504da09049f098d9'
-RENREN_REQUEST_PERMISSIONS = ''
+RENREN_CLIENT_ID = 'be38b19ad2dd422db293bccd410a2cd7'
+RENREN_CLIENT_SECRET = '555b7f4ed5be4a4e94e0104749ea2eb4'
+#RENREN_REQUEST_PERMISSIONS = ''
+
+DOUBAN_CLIENT_ID = '004112ce1e26140100c3386a5a723c03'
+DOUBAN_CLIENT_SECRET = '6c9868b7d29789d7'
+#DOUBAN_REQUEST_PERMISSIONS = ''
 
 AUTHENTICATION_BACKENDS = (
    'django.contrib.auth.backends.ModelBackend',
    'langkawi.contrib.weibo.auth.WeiboAuth',
    'langkawi.contrib.qq.auth.QQAuth',
    'langkawi.contrib.renren.auth.RenrenAuth',
+   'langkawi.contrib.douban.auth.DoubanAuth',
 )
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -146,6 +150,7 @@ INSTALLED_APPS = (
     'langkawi.contrib.weibo',
     'langkawi.contrib.qq',
     'langkawi.contrib.renren',
+    'langkawi.contrib.douban',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
