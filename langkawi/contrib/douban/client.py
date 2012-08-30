@@ -26,6 +26,7 @@ class Douban(OAuth2):
             reverse('langkawi:douban:callback'))
 
     def get_access_token(self, **params):
+        params['grant_type'] = 'authorization_code'
         return super(Douban, self).get_access_token(**params)
 
     def parse_access_token(self, content):
