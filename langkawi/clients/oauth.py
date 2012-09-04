@@ -335,7 +335,7 @@ class OAuth2(Client):
         if args.get('params') is not None:
             args['params'].update(self.get_signing_params())
         if args.get('data') is not None:
-            args['data'].update(self.get_signing_params())
+            args['data'] = self.get_signing_params()
         return args
 
     def r_get(self, url, params=None, headers=None):
