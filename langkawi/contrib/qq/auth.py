@@ -4,10 +4,10 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class QQAuth(ModelBackend):
-    def authenticate(self, qq=None):
+    def authenticate(self, openid=None):
         try:
             return QQProfile.objects.get(
-                qq=qq,
+                open_id=openid,
                 site=Site.objects.get_current()).user
         except QQProfile.DoesNotExist:
             return None

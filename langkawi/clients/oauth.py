@@ -331,8 +331,8 @@ class OAuth2(Client):
         if is_signed:
             params.update(self.get_signing_params())
         if method == 'GET':
-            return self._request(method, url, params=params, headers=headers)
-        return self._request(method, url, data=params, headers=headers)
+            return self._request.request(method, url, params=params, headers=headers)
+        return self._request.request(method, url, data=params, headers=headers)
 
     # Another way to do http requests
     def request_hook(self, args):

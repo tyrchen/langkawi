@@ -3,6 +3,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from langkawi.clients.oauth import OAuth2
 from langkawi.settings import SESSION_KEY
+import re
 import json
 from pprint import pprint
 
@@ -14,6 +15,7 @@ class QQ(OAuth2):
     site = 'https://graph.qq.com/'
     auth_url = 'oauth2.0/authorize'
     access_token_url = 'oauth2.0/token'
+
     expires = 30 * 24 * 3600
 
     _user_info = None
@@ -35,10 +37,18 @@ class QQ(OAuth2):
 
     def get_user_info(self):
         if self._user_info is None:
-            content = self.request('https://graph.qq.com/oauth2.0/me')
-            pprint(content)
-            self._user_info = content
-            pprint(self._user_info)
+            request_get_me = self.request('https://graph.qq.com/oauth2.0/me')
+            pprint(request_get_me.text)
+            patt = '\{.*\}'
+            m = re.search(patt, request_get_me.text)
+            if m is not None:
+                open_id = json.loads(m.group())['openid']
+                params = {'oauth_consumer_key': self.client_id, 'openid': open_id}
+                user_info = self.request('https://graph.qq.com/user/get_user_info', params=params).json
+                self._user_info['openid'] = open_id
+                self._user_info['name'] = user_info['nickname']
+                self._user_info['gender'] = user_info['gender']
+                self._user_info['profile_image_url'] = user_info['figureurl_2']
         return self._user_info
 
     def create_friendships(self, user, profile):

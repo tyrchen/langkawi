@@ -8,16 +8,19 @@ from langkawi.signals import connect
 class QQProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
-    qq = models.CharField(max_length=255)
+    openid = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10)
+    profile_image_url = models.URLField()
 
     def __unicode__(self):
         try:
-            return u'%s: %s' % (self.user, self.qq)
+            return u'%s: %s' % (self.user, self.openid)
         except User.DoesNotExist:
             return u'None'
 
     def authenticate(self):
-        return authenticate(qq=self.qq)
+        return authenticate(qq=self.openid)
 
 
 class QQAccessToken(models.Model):
