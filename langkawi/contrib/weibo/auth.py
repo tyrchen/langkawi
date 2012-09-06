@@ -4,10 +4,10 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class WeiboAuth(ModelBackend):
-    def authenticate(self, weibo=None):
+    def authenticate(self, weibo_uid=None):
         try:
             return WeiboProfile.objects.get(
-                weibo=weibo,
+                weibo_uid=weibo_uid,
                 site=Site.objects.get_current()).user
         except WeiboProfile.DoesNotExist:
             return None

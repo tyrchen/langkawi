@@ -23,4 +23,4 @@ class WeiboSetup(SetupCallback):
     template_name = 'langkawi/weibo/weibo.html'
 
     def get_lookup_kwargs(self, request, client):
-        return {'weibo': client.get_user_info()}
+        return client.get_user_info()

@@ -26,6 +26,8 @@ class QQ(OAuth2):
             reverse('langkawi:qq:callback'))
 
     def get_access_token(self, **params):
+        params['grant_type'] = 'authorization_code'
+        #params['state'] = 'tukeq'
         return super(QQ, self).get_access_token(**params)
 
     def parse_access_token(self, content):
@@ -38,6 +40,9 @@ class QQ(OAuth2):
             self._user_info = content
             pprint(self._user_info)
         return self._user_info
+
+    def create_friendships(self, user, profile):
+        pass
 
     def send(self, status, filename=None):
         data = {'content': status}

@@ -24,11 +24,17 @@ class UserForm(forms.Form):
             raise forms.ValidationError(_('This username is already in use.'))
 
     def save(self, request, user, profile, client):
-        user.username = self.cleaned_data.get('username')
-        user.email = self.cleaned_data.get('email')
-        user.set_unusable_password()
-        user.save()
-        profile.user = user
+        username, email, password = (self.cleaned_data['username'],
+                                        self.cleaned_data['email'],
+                                        user.set_unusable_password())
+
+        new_user = UserenaSignup.objects.create_user(username,
+                                                     email,
+                                                     password,
+                                                     not userena_settings.USERENA_ACTIVATION_REQUIRED,
+                                                     userena_settings.USERENA_ACTIVATION_REQUIRED)
+
+        profile.user = new_user
         profile.save()
 
-        return user, profile
+        return new_user, profile

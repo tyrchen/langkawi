@@ -265,6 +265,7 @@ class OAuth2(Client):
         Fetch an access token with the provided `code`.
         """
         content = self.oauth2_handler().get_token(code, **params)
+        pprint('token %s' % content)
         if 'error' in content:
             raise OAuthError(_(
                 u"Received error while obtaining access token from %s: %s") % (
@@ -283,8 +284,13 @@ class OAuth2(Client):
             self.access_token_dict = self._get_access_token(code, **params)
             try:
                 self._access_token = self.access_token_dict['access_token']
+                if isinstance(self._access_token, list):
+                    self._access_token = self._access_token[0]
                 if 'expires_in' in self.access_token_dict:
-                    self.expires = self.access_token_dict['expires_in'] + int(time.time())
+                    expires_in = self.access_token_dict['expires_in']
+                    if isinstance(expires_in, list):
+                        expires_in = expires_in[0]
+                    self.expires = int(expires_in) + int(time.time())
             except KeyError, e:
                 raise OAuthError("Credentials could not be validated, the provider returned no access token.")
 

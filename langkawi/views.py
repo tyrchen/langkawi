@@ -125,6 +125,8 @@ class Setup(SocialRegistration, View):
 
         user = profile.authenticate()
 
+        client.create_friendships(user, profile)
+
         self.send_connect_signal(request, user, profile, client)
 
         self.login(request, user)
@@ -266,7 +268,6 @@ class SetupCallback(SocialRegistration, View):
         if user is None:
             user = self.create_user()
             profile = self.create_profile(user, **lookup_kwargs)
-
             self.store_user(request, user)
             self.store_profile(request, profile)
             self.store_client(request, client)

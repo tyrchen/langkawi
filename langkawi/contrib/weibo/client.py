@@ -3,6 +3,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from langkawi.clients.oauth import OAuth2
 from langkawi.settings import SESSION_KEY
+from langkawi.models import FriendsRelationship
 import json
 from pprint import pprint
 
@@ -33,12 +34,27 @@ class Weibo(OAuth2):
 
     def get_user_info(self):
         if self._user_info is None:
-            #content = self.request('https://api.weibo.com/2/account/get_uid.json')
-            content = self.r_get('account/get_uid.json')
-            uid = content.json['uid']
-            self._user_info = uid
+            get_uid_response = self.r_get('account/get_uid.json')
+            self._user_info = {'weibo_uid': get_uid_response.json['uid']}
+            get_info_response = self.r_get('users/show.json', get_uid_response.json)
+            user_info_dict = get_info_response.json
+            keys = ['screen_name', 'name', 'location', 'description', 'gender', 'profile_image_url']
+            for key in keys:
+                if key in user_info_dict:
+                    self._user_info.update({key: user_info_dict.pop(key)})
             pprint(self._user_info)
         return self._user_info
+
+    def create_friendships(self, user, profile):
+        #fetch & save user's friends relationship
+        pprint('weibo uid:%s' % profile.weibo_uid)
+        get_friends_response = self.r_get('friendships/friends/bilateral.json', {'uid': profile.weibo_uid})
+        pprint(get_friends_response.text)
+        friends = get_friends_response.json['users']
+        for item in friends:
+            friend = FriendsRelationship(user=user, friend_id=item['id'], third_part='weibo')
+            friend.save()
+            pprint(friend)
 
     def send(self, status, filename=None):
         data = {'status': status}

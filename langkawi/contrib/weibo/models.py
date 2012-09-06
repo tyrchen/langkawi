@@ -8,16 +8,22 @@ from langkawi.signals import connect
 class WeiboProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
-    weibo = models.CharField(max_length=255)
+    weibo_uid = models.CharField(max_length=50)
+    screen_name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+    gender = models.CharField(max_length=1)
+    profile_image_url = models.URLField()
 
     def __unicode__(self):
         try:
-            return u'%s: %s' % (self.user, self.weibo)
+            return u'%s: %s' % (self.user, self.weibo_uid)
         except User.DoesNotExist:
             return u'None'
 
     def authenticate(self):
-        return authenticate(weibo=self.weibo)
+        return authenticate(weibo_uid=self.weibo_uid)
 
 
 class WeiboAccessToken(models.Model):
