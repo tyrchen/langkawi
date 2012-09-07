@@ -45,10 +45,12 @@ class QQ(OAuth2):
                 open_id = json.loads(m.group())['openid']
                 params = {'oauth_consumer_key': self.client_id, 'openid': open_id}
                 user_info = self.request('https://graph.qq.com/user/get_user_info', params=params).json
+                self._user_info = {}
                 self._user_info['openid'] = open_id
                 self._user_info['name'] = user_info['nickname']
                 self._user_info['gender'] = user_info['gender']
                 self._user_info['profile_image_url'] = user_info['figureurl_2']
+            pprint(self._user_info)
         return self._user_info
 
     def create_friendships(self, user, profile):

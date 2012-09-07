@@ -20,7 +20,7 @@ class QQProfile(models.Model):
             return u'None'
 
     def authenticate(self):
-        return authenticate(qq=self.openid)
+        return authenticate(openid=self.openid)
 
 
 class QQAccessToken(models.Model):

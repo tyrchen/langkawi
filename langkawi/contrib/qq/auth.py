@@ -7,7 +7,7 @@ class QQAuth(ModelBackend):
     def authenticate(self, openid=None):
         try:
             return QQProfile.objects.get(
-                open_id=openid,
+                openid=openid,
                 site=Site.objects.get_current()).user
         except QQProfile.DoesNotExist:
             return None
