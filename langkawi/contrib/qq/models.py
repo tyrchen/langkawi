@@ -6,12 +6,16 @@ from langkawi.signals import connect
 
 
 class QQProfile(models.Model):
+
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
     openid = models.CharField(max_length=100)
     name = models.CharField(max_length=50)
     gender = models.CharField(max_length=10)
     profile_image_url = models.URLField()
+
+    class Meta:
+        db_table = 'social_qqprofile'
 
     def __unicode__(self):
         try:
@@ -24,8 +28,13 @@ class QQProfile(models.Model):
 
 
 class QQAccessToken(models.Model):
+
     profile = models.OneToOneField(QQProfile, related_name='access_token')
     access_token = models.CharField(max_length=255)
+    token_expires_in = models.IntegerField()
+
+    class Meta:
+        db_table = 'social_qqaccesstoken'
 
 
 def save_qq_token(sender, user, profile, client, **kwargs):
@@ -35,7 +44,7 @@ def save_qq_token(sender, user, profile, client, **kwargs):
         pass
 
     QQAccessToken.objects.create(access_token=client.get_access_token(),
-        profile=profile)
+        profile=profile, token_expires_in=client.expires_in)
 
 
 connect.connect(save_qq_token, sender=QQProfile,

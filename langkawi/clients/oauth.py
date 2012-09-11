@@ -1,4 +1,3 @@
-from django.utils.encoding import smart_unicode
 from django.utils.translation import ugettext_lazy as _
 from langkawi.clients import Client
 import requests
@@ -46,7 +45,7 @@ class OAuth2(Client):
     access_token_dict = None
 
     # The date when access token will expire
-    expires = 0.0
+    token_expires_in = 0.0
 
     # The URL where we'll be requesting api
     api_url = None
@@ -95,7 +94,6 @@ class OAuth2(Client):
         Fetch an access token with the provided `code`.
         """
         content = self.oauth2_handler().get_token(code, **params)
-        pprint('token %s' % content)
         if 'error' in content:
             raise OAuthError(_(
                 u"Received error while obtaining access token from %s: %s") % (
@@ -120,7 +118,7 @@ class OAuth2(Client):
                     expires_in = self.access_token_dict['expires_in']
                     if isinstance(expires_in, list):
                         expires_in = expires_in[0]
-                    self.expires = int(expires_in) + int(time.time())
+                    self.token_expires_in = int(expires_in) + int(time.time())
             except KeyError, e:
                 raise OAuthError("Credentials could not be validated, the provider returned no access token.")
 
@@ -146,7 +144,7 @@ class OAuth2(Client):
         return dict(access_token=self._access_token)
 
     def is_expires(self):
-        return not self._access_token or time.time() > self.expires
+        return not self._access_token or time.time() > self.token_expires_in
 
     # Basic http request
     def request(self, url, method="GET", params=None, headers=None, is_signed=True):

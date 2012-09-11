@@ -3,7 +3,6 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from langkawi.clients.oauth import OAuth2
 from langkawi.settings import SESSION_KEY
-from langkawi.models import FriendsRelationship
 import json
 from pprint import pprint
 
@@ -47,17 +46,10 @@ class Weibo(OAuth2):
 
     def create_friendships(self, user, profile):
         #fetch & save user's friends relationship
-        pprint('weibo uid:%s' % profile.weibo_uid)
+        #pprint('weibo uid:%s' % profile.weibo_uid)
         get_friends_response = self.r_get('friendships/friends/bilateral.json', {'uid': profile.weibo_uid, 'count': 200})
-        pprint(get_friends_response.text)
+        #pprint(get_friends_response.text)
         friends = get_friends_response.json['users']
-        f = open('friends.info', 'w')
-        for item in friends:
-            friend = FriendsRelationship(user=user, friend_id=item['id'], third_part='weibo')
-            f.write('weibo:friends:%s\n' % item['id'])
-            friend.save()
-            pprint(friend)
-        f.close()
 
     def send(self, status, filename=None):
         data = {'status': status}

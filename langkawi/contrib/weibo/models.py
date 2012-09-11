@@ -16,6 +16,9 @@ class WeiboProfile(models.Model):
     gender = models.CharField(max_length=1)
     profile_image_url = models.URLField()
 
+    class Meta:
+        db_table = 'social_weiboprofile'
+
     def __unicode__(self):
         try:
             return u'%s: %s' % (self.user, self.weibo_uid)
@@ -27,8 +30,13 @@ class WeiboProfile(models.Model):
 
 
 class WeiboAccessToken(models.Model):
+
     profile = models.OneToOneField(WeiboProfile, related_name='access_token')
     access_token = models.CharField(max_length=255)
+    token_expires_in = models.IntegerField()
+
+    class Meta:
+        db_table = 'social_weiboaccesstoken'
 
 
 def save_weibo_token(sender, user, profile, client, **kwargs):
@@ -38,7 +46,7 @@ def save_weibo_token(sender, user, profile, client, **kwargs):
         pass
 
     WeiboAccessToken.objects.create(access_token=client.get_access_token(),
-        profile=profile)
+        profile=profile, token_expires_in=client.token_expires_in)
 
 
 connect.connect(save_weibo_token, sender=WeiboProfile,
