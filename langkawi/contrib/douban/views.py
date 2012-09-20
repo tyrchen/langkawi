@@ -23,4 +23,5 @@ class DoubanSetup(SetupCallback):
     template_name = 'langkawi/douban/douban.html'
 
     def get_lookup_kwargs(self, request, client):
-        return {'douban': client.get_user_info()}
+        self.uid, user_info = client.get_user_info()
+        return user_info

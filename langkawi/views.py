@@ -123,12 +123,7 @@ class Setup(SocialRegistration, View):
 
         user, profile = form.save(request, user, profile, client)
 
-        pprint("the generated user %s" % user)
-        pprint("the generated profile %s" % profile)
-
         user = profile.authenticate()
-        pprint("the generated user %s" % user)
-        pprint("the generated profile %s" % profile)
 
         client.create_friendships(user, profile)
 
@@ -267,9 +262,9 @@ class SetupCallback(SocialRegistration, View):
         # Logged out user - let's see if we've got the identity saved already.
         # If so - just log the user in. If not, create profile and redirect
         # to the setup views
-        social_uid = self.get_social_uid(**lookup_kwargs)
-        user = self.authenticate(**social_uid)
-        pprint(user)
+        pprint('uid is %s' % self.uid)
+        user = self.authenticate(**self.uid)
+        pprint("user is %s" % user)
         # No user existing - create a new one and redirect to the final setup view
         if user is None:
             user = self.create_user()

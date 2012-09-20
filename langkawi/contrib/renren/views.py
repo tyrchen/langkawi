@@ -23,4 +23,5 @@ class RenrenSetup(SetupCallback):
     template_name = 'langkawi/renren/renren.html'
 
     def get_lookup_kwargs(self, request, client):
-        return {'renren': client.get_user_info()}
+        self.uid, user_info = client.get_user_info()
+        return user_info

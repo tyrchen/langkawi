@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from langkawi.contrib.weibo.client import Weibo
 from langkawi.contrib.weibo.models import WeiboProfile
 from langkawi.views import OAuthRedirect, OAuthCallback, SetupCallback
+from pprint import pprint
 
 
 class WeiboRedirect(OAuthRedirect):
@@ -23,4 +24,6 @@ class WeiboSetup(SetupCallback):
     template_name = 'langkawi/weibo/weibo.html'
 
     def get_lookup_kwargs(self, request, client):
-        return client.get_user_info()
+        self.uid, user_info = client.get_user_info()
+        self.username = user_info['screen_name']
+        return user_info

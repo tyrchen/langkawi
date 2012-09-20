@@ -23,4 +23,5 @@ class QQSetup(SetupCallback):
     template_name = 'langkawi/qq/qq.html'
 
     def get_lookup_kwargs(self, request, client):
-        return client.get_user_info()
+        self.uid, user_info = client.get_user_info()
+        return user_info

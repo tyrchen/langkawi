@@ -5,10 +5,8 @@ from django.http import HttpResponseRedirect
 from django.utils import importlib
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
-
 from langkawi import signals
 from langkawi.settings import SESSION_KEY
-import pprint
 
 
 class CommonMixin(TemplateResponseMixin):
@@ -98,6 +96,8 @@ class ProfileMixin(object):
     """
     #: The profile model that we'll be working with
     profile = None
+    uid = None
+    username = None
 
     def get_lookup_kwargs(self, request, client):
         """
@@ -154,8 +154,7 @@ class ProfileMixin(object):
         """
         Return a profile object
         """
-        social_uid = self.get_social_uid(**kwargs)
-        return self.get_model().objects.get(**social_uid)
+        return self.get_model().objects.get(**self.uid)
 
     def get_or_create_profile(self, user, save=False, **kwargs):
         """

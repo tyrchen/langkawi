@@ -4,10 +4,10 @@ from django.contrib.auth.backends import ModelBackend
 
 
 class RenrenAuth(ModelBackend):
-    def authenticate(self, renren=None):
+    def authenticate(self, uid=None):
         try:
             return RenrenProfile.objects.get(
-                renren=renren,
+                uid=uid,
                 site=Site.objects.get_current()).user
         except RenrenProfile.DoesNotExist:
             return None

@@ -4,7 +4,6 @@ from django.core.urlresolvers import reverse
 from langkawi.clients.oauth import OAuth2
 from langkawi.settings import SESSION_KEY
 import json
-from pprint import pprint
 
 
 class Weibo(OAuth2):
@@ -16,6 +15,7 @@ class Weibo(OAuth2):
     access_token_url = 'oauth2/access_token'
     api_url = 'https://api.weibo.com/2/'
     upload_api_url = 'https://upload.api.weibo.com/2/'
+    _uid = None
     _user_info = None
 
     def get_callback_url(self):
@@ -32,17 +32,19 @@ class Weibo(OAuth2):
         return json.loads(content)
 
     def get_user_info(self):
-        if self._user_info is None:
+        if self._uid is None:
+            #fetch weibo uid
             get_uid_response = self.r_get('account/get_uid.json')
-            self._user_info = {'weibo_uid': get_uid_response.json['uid']}
+            self._uid = {'weibo_uid': get_uid_response.json['uid']}
             get_info_response = self.r_get('users/show.json', get_uid_response.json)
             user_info_dict = get_info_response.json
             keys = ['screen_name', 'name', 'location', 'description', 'gender', 'profile_image_url']
+            self._user_info = {}
+            self._user_info.update(self._uid)
             for key in keys:
                 if key in user_info_dict:
                     self._user_info.update({key: user_info_dict.pop(key)})
-            pprint(self._user_info)
-        return self._user_info
+        return self._uid, self._user_info
 
     def create_friendships(self, user, profile):
         #fetch & save user's friends relationship

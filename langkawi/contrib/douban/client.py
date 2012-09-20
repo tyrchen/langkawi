@@ -14,8 +14,9 @@ class Douban(OAuth2):
     site = 'https://www.douban.com/service/'
     auth_url = 'auth2/auth'
     access_token_url = 'auth2/token'
-    expires = 30 * 24 * 3600
-
+    api_url = 'https://api.douban.com/v2/'
+    expires_in = 30 * 24 * 3600
+    _uid = None
     _user_info = None
 
     def get_callback_url(self):
@@ -32,20 +33,29 @@ class Douban(OAuth2):
     def parse_access_token(self, content):
         return json.loads(content)
 
+    def request_api(self, api, method='GET'):
+        headers = {"Authorization": "Bearer " + self.get_access_token()}
+        if method == 'POST':
+            return self.r_post(api, headers=headers)
+        return self.r_get(api, headers=headers)
+
     def get_user_info(self):
-        if self._user_info is None:
-            content = self.request('http://api.douban.com/people/@me')
-            pprint(content)
-            self._user_info = content
+        if self._uid is None:
+            response = self.request_api('user/~me').json
+            self._uid = {'uid': response['id']}
+            self._user_info = {'name': response['name'],
+            'domain': response['uid'],
+            'profile_image_url': response['avatar'],
+            'desc': response['desc']}
+            self._user_info.update(self._uid)
             pprint(self._user_info)
-        return self._user_info
+        return self._uid, self._user_info
+
+    def create_friendships(self, user, profile):
+        pass
 
     def send(self, status, filename=None):
-        data = {'content': status}
-        if filename is None:
-            return self.r_post('statuses/update.json', data=data)
-        pic = {'pic': open(filename, 'rb')}
-        return self.r_upload('statuses/upload.json', pic, data=data)
+        pass
 
     @staticmethod
     def get_session_key():

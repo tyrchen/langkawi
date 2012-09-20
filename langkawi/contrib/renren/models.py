@@ -8,21 +8,30 @@ from langkawi.signals import connect
 class RenrenProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
-    renren = models.CharField(max_length=255)
+    uid = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
+    profile_image_url = models.URLField()
+
+    class Meta:
+        db_table = 'social_renrenprofile'
 
     def __unicode__(self):
         try:
-            return u'%s: %s' % (self.user, self.renren)
+            return u'%s: %s' % (self.user, self.uid)
         except User.DoesNotExist:
             return u'None'
 
     def authenticate(self):
-        return authenticate(renren=self.renren)
+        return authenticate(uid=self.uid)
 
 
 class RenrenAccessToken(models.Model):
     profile = models.OneToOneField(RenrenProfile, related_name='access_token')
     access_token = models.CharField(max_length=255)
+    token_expires_in = models.IntegerField()
+
+    class Meta:
+        db_table = 'social_renrenaccesstoken'
 
 
 def save_renren_token(sender, user, profile, client, **kwargs):
@@ -32,7 +41,7 @@ def save_renren_token(sender, user, profile, client, **kwargs):
         pass
 
     RenrenAccessToken.objects.create(access_token=client.get_access_token(),
-        profile=profile)
+        profile=profile, token_expires_in=client.expires_in)
 
 
 connect.connect(save_renren_token, sender=RenrenProfile,
