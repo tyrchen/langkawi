@@ -11,7 +11,7 @@ METADATA = dict(
     long_description=open('README.md').read(),
     url='http://github.com/tyrchen/langkawi',
     keywords='django weibo tencent renren douban oauth2',
-    packages=find_packages(),
+    packages=find_packages(exclude=['example', 'example.*']),
     install_requires=['requests', 'requests_oauth2'],
     include_package_data=True,
     classifiers=[
