@@ -120,20 +120,6 @@ class ProfileMixin(object):
         """
         return User()
 
-    def get_social_uid(self, **kwargs):
-        """
-        Return the unique auth id from the chosen third part
-        """
-        social_uid = {}
-        if 'weibo_uid' in kwargs:
-            social_uid['weibo_uid'] = kwargs['weibo_uid']
-            return social_uid
-        elif 'openid' in kwargs:
-            social_uid['openid'] = kwargs['openid']
-            return social_uid
-        else:
-            return kwargs
-
     def create_profile(self, user, save=False, **kwargs):
         """
         Create a profile model.
@@ -211,8 +197,10 @@ class SessionMixin(object):
         Clear all session data.
         """
         for key in ['user', 'profile', 'client']:
-            try: del request.session['%s%s' % (SESSION_KEY, key)]
-            except KeyError: pass
+            try:
+                del request.session['%s%s' % (SESSION_KEY, key)]
+            except KeyError:
+                pass
 
 
 class SignalMixin(object):
