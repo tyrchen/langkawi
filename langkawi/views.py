@@ -211,7 +211,6 @@ class OAuthCallback(SocialRegistration, View):
         """
         try:
             client = request.session[self.get_client().get_session_key()]
-            pprint(request.GET.items())
             client.complete(dict(request.GET.items()))
             request.session[self.get_client().get_session_key()] = client
             return HttpResponseRedirect(self.get_redirect())
@@ -244,6 +243,7 @@ class SetupCallback(SocialRegistration, View):
         try:
             client = request.session[self.get_client().get_session_key()]
         except KeyError:
+            pprint("session expired!")
             return self.render_to_response({'error': "Session expired."})
 
         # Get the lookup dictionary to find the user's profile
@@ -262,9 +262,9 @@ class SetupCallback(SocialRegistration, View):
         # Logged out user - let's see if we've got the identity saved already.
         # If so - just log the user in. If not, create profile and redirect
         # to the setup views
-        pprint('uid is %s' % self.uid)
+        #pprint('uid is %s' % self.uid)
         user = self.authenticate(**self.uid)
-        pprint("user is %s" % user)
+        #pprint("user is %s" % user)
         # No user existing - create a new one and redirect to the final setup view
         if user is None:
             user = self.create_user()
