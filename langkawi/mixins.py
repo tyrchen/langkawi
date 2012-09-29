@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
 from langkawi import signals
 from langkawi.settings import SESSION_KEY
+from pprint import pprint
 
 
 class CommonMixin(TemplateResponseMixin):
