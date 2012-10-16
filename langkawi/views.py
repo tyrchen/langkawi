@@ -6,7 +6,8 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from langkawi.clients.oauth import OAuthError
 from langkawi.mixins import SocialRegistration
-from pprint import pprint
+from cayman.models.accounts import User
+
 
 GENERATE_USERNAME = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME', False)
 
@@ -76,6 +77,8 @@ class Setup(SocialRegistration, View):
         profile.save()
 
         user = profile.authenticate()
+
+        request.user = user
 
         self.send_connect_signal(request, user, profile, client)
 
@@ -243,7 +246,6 @@ class SetupCallback(SocialRegistration, View):
         try:
             client = request.session[self.get_client().get_session_key()]
         except KeyError:
-            pprint("session expired!")
             return self.render_to_response({'error': "Session expired."})
 
         # Get the lookup dictionary to find the user's profile
@@ -264,7 +266,7 @@ class SetupCallback(SocialRegistration, View):
         # to the setup views
         #pprint('uid is %s' % self.uid)
         user = self.authenticate(**self.uid)
-        #pprint("user is %s" % user)
+        #pprint(user.__dict__)
         # No user existing - create a new one and redirect to the final setup view
         if user is None:
             user = self.create_user()

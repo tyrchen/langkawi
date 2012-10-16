@@ -43,7 +43,7 @@ def save_douban_token(sender, user, profile, client, **kwargs):
         pass
 
     DoubanAccessToken.objects.create(access_token=client.get_access_token(),
-        profile=profile, token_expires_in=client.expires_in)
+        profile=profile, token_expires_in=client.token_expires_in)
 
 
 connect.connect(save_douban_token, sender=DoubanProfile,

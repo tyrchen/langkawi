@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
@@ -44,7 +45,7 @@ def save_qq_token(sender, user, profile, client, **kwargs):
         pass
 
     QQAccessToken.objects.create(access_token=client.get_access_token(),
-        profile=profile, token_expires_in=client.expires_in)
+        profile=profile, token_expires_in=client.token_expires_in)
 
 
 connect.connect(save_qq_token, sender=QQProfile,

@@ -5,7 +5,6 @@ from langkawi.clients.oauth import OAuth2
 from langkawi.settings import SESSION_KEY
 import re
 import json
-from pprint import pprint
 
 
 class QQ(OAuth2):
@@ -46,7 +45,7 @@ class QQ(OAuth2):
                 user_info = self.request('https://graph.qq.com/user/get_user_info', params=params).json
                 self._user_info = {}
                 self._user_info.update(self._uid)
-                self._user_info['name'] = user_info['nickname'].decode('utf-8')
+                self._user_info['name'] = user_info['nickname']
                 self._user_info['gender'] = user_info['gender']
                 self._user_info['profile_image_url'] = user_info['figureurl_2']
         return self._uid, self._user_info
