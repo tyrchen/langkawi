@@ -279,7 +279,7 @@ class SetupCallback(SocialRegistration, View):
 
         # Inactive user - displaying / redirect to the appropriate place.
         if not user.is_active:
-            return self.inactive_response()
+            return self.inactive_response(request, user)
 
         # Active user with existing profile: login, send signal and redirect
         self.login(request, user)

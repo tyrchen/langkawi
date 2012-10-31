@@ -52,13 +52,13 @@ class CommonMixin(TemplateResponseMixin):
         """
         return login(request, user)
 
-    def inactive_response(self):
+    def inactive_response(self, request, user):
         """
         Return an inactive message.
         """
         inactive_url = getattr(settings, 'LOGIN_INACTIVE_REDIRECT_URL', '')
         if inactive_url:
-            return HttpResponseRedirect(inactive_url)
+            return HttpResponseRedirect(inactive_url % {'pk': user.pk})
         else:
             return self.render_to_response({'error': _("This user account is marked as inactive.")})
 
