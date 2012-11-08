@@ -9,10 +9,10 @@ class DoubanProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
     uid = models.CharField(max_length=20)
-    domain = models.CharField(max_length=50)
-    name = models.CharField(max_length=50)
-    desc = models.CharField(max_length=255)
-    profile_image_url = models.URLField()
+    domain = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    desc = models.CharField(max_length=255, blank=True, null=True)
+    profile_image_url = models.URLField(blank=True, null=True)
 
     class Meta:
         db_table = 'social_doubanprofile'
