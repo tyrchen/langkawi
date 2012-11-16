@@ -22,9 +22,9 @@ class Renren(OAuth2):
 
     def get_callback_url(self):
         if self.is_https():
-            return 'https://%s%s' % (Site.objects.get_current().domain,
+            return '%s%s' % (Site.objects.get_current().domain,
                 reverse('langkawi:renren:callback'))
-        return 'http://%s%s' % (Site.objects.get_current().domain,
+        return '%s%s' % (Site.objects.get_current().domain,
             reverse('langkawi:renren:callback'))
 
     def get_access_token(self, **params):
