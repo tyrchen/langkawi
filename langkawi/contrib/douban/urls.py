@@ -4,6 +4,6 @@ from langkawi.contrib.douban.views import DoubanRedirect, \
     DoubanCallback, DoubanSetup
 urlpatterns = patterns('',
     url('^redirect/$', DoubanRedirect.as_view(), name='redirect'),
-    url('^callback/$', DoubanCallback.as_view(), name='callback'),
+    url('^callback', DoubanCallback.as_view(), name='callback'),
     url('^setup/$', DoubanSetup.as_view(), name='setup'),
 )
