@@ -9,12 +9,12 @@ class WeiboProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
     weibo_uid = models.CharField(max_length=50)
-    screen_name = models.CharField(max_length=50, blank=True, null=True)
-    name = models.CharField(max_length=50, blank=True, null=True)
-    location = models.CharField(max_length=50, blank=True, null=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    gender = models.CharField(max_length=1, blank=True, null=True)
-    profile_image_url = models.URLField(blank=True, null=True)
+    screen_name = models.CharField(max_length=50, blank=True, default='')
+    name = models.CharField(max_length=50, blank=True, default='')
+    location = models.CharField(max_length=50, blank=True, default='')
+    description = models.CharField(max_length=255, blank=True, default='')
+    gender = models.CharField(max_length=1, blank=True, default='m')
+    profile_image_url = models.URLField(blank=True, default='')
 
     class Meta:
         db_table = 'social_weiboprofile'

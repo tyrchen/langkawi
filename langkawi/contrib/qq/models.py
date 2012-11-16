@@ -11,9 +11,9 @@ class QQProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
     site = models.ForeignKey(Site, default=Site.objects.get_current)
     openid = models.CharField(max_length=100)
-    name = models.CharField(max_length=50, null=True, blank=True)
-    gender = models.CharField(max_length=10,null=True, blank=True)
-    profile_image_url = models.URLField(null=True, blank=True)
+    name = models.CharField(max_length=50, default='', blank=True)
+    gender = models.CharField(max_length=10,default='', blank=True)
+    profile_image_url = models.URLField(default='', blank=True)
 
     class Meta:
         db_table = 'social_qqprofile'
