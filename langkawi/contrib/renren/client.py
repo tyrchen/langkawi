@@ -11,11 +11,11 @@ import hashlib
 class Renren(OAuth2):
     client_id = getattr(settings, 'RENREN_CLIENT_ID', '')
     secret = getattr(settings, 'RENREN_CLIENT_SECRET', '')
-    scope = getattr(settings, 'RENREN_REQUEST_PERMISSIONS', 'feed.publishFeed,photos.sendFeed')
-    site = 'https://login.renren.com/mlogin/'
-    auth_url = 'auth/auth'
-    access_token_url = 'auth/token'
-    api_url = 'http://api.m.renren.com/api/'
+    scope = getattr(settings, 'RENREN_REQUEST_PERMISSIONS', 'publish_feed photo_upload')
+    site = 'https://graph.renren.com/' #'https://login.renren.com/mlogin/'
+    auth_url = 'oauth/authorize' #'auth/auth'
+    access_token_url = 'oauth/token' #'auth/token'
+    api_url = 'http://api.renren.com/restserver.do' #'http://api.m.renren.com/api/'
     expires = 30 * 24 * 3600
     _uid = None
     _user_info = None
@@ -34,24 +34,25 @@ class Renren(OAuth2):
     def parse_access_token(self, content):
         return json.loads(content)
 
-    def api_reqeust(self, api, method='GET'):
+    def api_reqeust(self, method):
         call_id = datetime.now().microsecond
         v = '1.0'
         access_token = self.get_access_token()
-        sig_string = 'access_token=' + access_token + 'call_id=' + str(call_id) + 'v=' + v
+        sig_string = 'access_token=' + access_token + 'format=JSON' + 'method=' + method + 'v=' + v
         sig_string = sig_string + self.secret
+        print sig_string
         sig = hashlib.md5(sig_string).hexdigest()
-        params = {'call_id': call_id, 'sig': sig, 'v': v}
+        params = {'method': method, 'sig': sig, 'v': v, 'format':'JSON'}
         #content = self.request('http://api.m.renren.com/api/profile/getInfo', 'POST', params)
-        if method == 'POST':
-            return self.r_post(api, params)
-        return self.r_get(api, params)
+        return self.request(self.api_url, 'POST', params)
 
     def get_user_info(self):
         if self._uid is None:
-            response = self.api_reqeust('profile/getInfo', 'POST').json
-            self._uid = {'uid': response['user_id']}
-            self._user_info = {'name': response['user_name'], 'profile_image_url': response['main_url']}
+            #stupid Renren, get session key first
+            response = self.api_reqeust('users.getInfo').json[0]
+            print response
+            self._uid = {'uid': response['uid']}
+            self._user_info = {'name': response['name'], 'profile_image_url': response['headurl']}
             self._user_info.update(self._uid)
         return self._uid, self._user_info
 
