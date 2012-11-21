@@ -17,8 +17,9 @@ USERNAME_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME_FUNC
 FORM_CLASS = getattr(settings, 'SOCIALREGISTRATION_SETUP_FORM',
     'langkawi.forms.UserForm')
 
-INITAL_DATA_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_INITIAL_DATA_FUNCTION',
+INITIAL_DATA_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_INITIAL_DATA_FUNCTION',
     None)
+
 
 
 class Setup(SocialRegistration, View):
@@ -51,10 +52,10 @@ class Setup(SocialRegistration, View):
         :param profile: The unsaved profile object
         :param client: The API client
         """
-        if INITAL_DATA_FUNCTION:
-            func = self.import_attribute(INITAL_DATA_FUNCTION)
+        if INITIAL_DATA_FUNCTION:
+            func = self.import_attribute(INITIAL_DATA_FUNCTION)
             return func(request, user, profile, client)
-        return {}
+        return {'username': profile.name }
 
     def generate_username_and_redirect(self, request, user, profile, client):
         """
@@ -103,7 +104,9 @@ class Setup(SocialRegistration, View):
 
         if GENERATE_USERNAME:
             return self.generate_username_and_redirect(request, user, profile, client)
-
+        print '--------------------------'
+        print user.__dict__
+        print '--------------------------'
         form = self.get_form()(initial=self.get_initial_data(request, user, profile, client))
 
         return self.render_to_response(dict(form=form))

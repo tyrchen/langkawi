@@ -38,7 +38,9 @@ class CommonMixin(TemplateResponseMixin):
         elif 'next' in request.POST:
             return request.POST.get('next')
         else:
-            return getattr(settings, 'LOGIN_REDIRECT_URL', '/')
+            if request.user is not None:
+                return settings.LOGIN_REDIRECT_URL % {'pk':request.user.pk}
+            return settings.LOGIN_REDIRECT_URL
 
     def authenticate(self, **kwargs):
         """
