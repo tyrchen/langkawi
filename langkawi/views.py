@@ -104,9 +104,6 @@ class Setup(SocialRegistration, View):
 
         if GENERATE_USERNAME:
             return self.generate_username_and_redirect(request, user, profile, client)
-        print '--------------------------'
-        print user.__dict__
-        print '--------------------------'
         form = self.get_form()(initial=self.get_initial_data(request, user, profile, client))
 
         return self.render_to_response(dict(form=form))
