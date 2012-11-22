@@ -69,7 +69,6 @@ class OAuth2(Client):
         permissions.
         """
         authorization_url = self.oauth2_handler().authorize_url(self.scope, response_type='code')
-        pprint(authorization_url)
         return authorization_url
 
     def parse_access_token(self, content):

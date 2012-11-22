@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.http import HttpResponseRedirect
 from django.utils import importlib
 from django.utils.translation import ugettext_lazy as _
@@ -38,9 +38,11 @@ class CommonMixin(TemplateResponseMixin):
         elif 'next' in request.POST:
             return request.POST.get('next')
         else:
-            if request.user is not None:
-                return settings.LOGIN_REDIRECT_URL % {'pk':request.user.pk}
-            return settings.LOGIN_REDIRECT_URL
+            try:
+                user = request.session['%suser' % SESSION_KEY]
+                return settings.LOGIN_REDIRECT_URL % {'pk':user.pk}
+            except KeyError:
+                return '/'
 
     def authenticate(self, **kwargs):
         """
