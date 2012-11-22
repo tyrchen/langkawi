@@ -40,7 +40,10 @@ class CommonMixin(TemplateResponseMixin):
         else:
             try:
                 user = request.session['%suser' % SESSION_KEY]
-                return settings.LOGIN_REDIRECT_URL % {'pk':user.pk}
+                if not isinstance(user, AnonymousUser):
+                    return settings.LOGIN_REDIRECT_URL % {'pk':user.pk}
+                else:
+                    return '/'
             except KeyError:
                 return '/'
 
