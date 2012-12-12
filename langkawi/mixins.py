@@ -38,14 +38,9 @@ class CommonMixin(TemplateResponseMixin):
         elif 'next' in request.POST:
             return request.POST.get('next')
         else:
-            try:
-                user = request.session['%suser' % SESSION_KEY]
-                if not isinstance(user, AnonymousUser):
-                    return settings.LOGIN_REDIRECT_URL % {'pk':user.pk}
-                else:
-                    return '/'
-            except KeyError:
-                return '/'
+            if request.user and not isinstance(request.user, AnonymousUser):
+                return settings.LOGIN_REDIRECT_URL % {'pk':request.user.pk}
+            return '/'
 
     def authenticate(self, **kwargs):
         """

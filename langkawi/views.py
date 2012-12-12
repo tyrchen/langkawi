@@ -8,8 +8,16 @@ from langkawi.clients.oauth import OAuthError
 from langkawi.mixins import SocialRegistration
 from cayman.models.accounts import User
 
+def initial_form_data(request, user, profile, client):
+    initial_data = {}
+    initial_data['username'] = profile.name
+    if 'email' in request.session:
+        initial_data['email'] = request.session['email']
+    return initial_data
 
 GENERATE_USERNAME = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME', False)
+
+INVITE_MODE = getattr(settings, 'INVITE_MODE', False)
 
 USERNAME_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME_FUNCTION',
     'langkawi.utils.generate_username')
@@ -18,7 +26,7 @@ FORM_CLASS = getattr(settings, 'SOCIALREGISTRATION_SETUP_FORM',
     'langkawi.forms.UserForm')
 
 INITIAL_DATA_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_INITIAL_DATA_FUNCTION',
-    None)
+    initial_form_data)
 
 
 
@@ -55,7 +63,7 @@ class Setup(SocialRegistration, View):
         if INITIAL_DATA_FUNCTION:
             func = self.import_attribute(INITIAL_DATA_FUNCTION)
             return func(request, user, profile, client)
-        return {'username': profile.name }
+        return {}
 
     def generate_username_and_redirect(self, request, user, profile, client):
         """
@@ -128,7 +136,10 @@ class Setup(SocialRegistration, View):
 
         user = profile.authenticate()
 
-        client.create_friendships(user, profile)
+        #client.create_friendships(user, profile)
+
+        if not user.is_active:
+            return self.inactive_response(request, user)
 
         self.send_connect_signal(request, user, profile, client)
 
@@ -242,7 +253,6 @@ class SetupCallback(SocialRegistration, View):
           and redirect the user further to either capture some data via
           form or generate a username automatically
         """
-
         try:
             client = request.session[self.get_client().get_session_key()]
         except KeyError:
@@ -269,6 +279,9 @@ class SetupCallback(SocialRegistration, View):
         #pprint(user.__dict__)
         # No user existing - create a new one and redirect to the final setup view
         if user is None:
+            if INVITE_MODE and not 'invite_code' in request.session:
+                return HttpResponseRedirect(reverse('invitation_invite'))
+
             user = self.create_user()
             profile = self.create_profile(user, **lookup_kwargs)
             self.store_user(request, user)
