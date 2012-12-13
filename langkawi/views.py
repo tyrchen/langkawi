@@ -6,7 +6,6 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from langkawi.clients.oauth import OAuthError
 from langkawi.mixins import SocialRegistration
-from cayman.models.accounts import User
 
 def initial_form_data(request, user, profile, client):
     initial_data = {}
