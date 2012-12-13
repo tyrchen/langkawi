@@ -11,8 +11,8 @@ from cayman.models.accounts import User
 def initial_form_data(request, user, profile, client):
     initial_data = {}
     initial_data['username'] = profile.name
-    if 'email' in request.session:
-        initial_data['email'] = request.session['email']
+    if 'invite_email' in request.session:
+        initial_data['email'] = request.session['invite_email']
     return initial_data
 
 GENERATE_USERNAME = getattr(settings, 'SOCIALREGISTRATION_GENERATE_USERNAME', False)
@@ -26,7 +26,7 @@ FORM_CLASS = getattr(settings, 'SOCIALREGISTRATION_SETUP_FORM',
     'langkawi.forms.UserForm')
 
 INITIAL_DATA_FUNCTION = getattr(settings, 'SOCIALREGISTRATION_INITIAL_DATA_FUNCTION',
-    initial_form_data)
+    'langkawi.views.initial_form_data')
 
 
 

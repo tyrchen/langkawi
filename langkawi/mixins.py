@@ -198,7 +198,7 @@ class SessionMixin(object):
         """
         Clear all session data.
         """
-        for key in ['user', 'profile', 'client']:
+        for key in ['user', 'profile', 'client', 'invite_email', 'invite_code']:
             try:
                 del request.session['%s%s' % (SESSION_KEY, key)]
             except KeyError:
