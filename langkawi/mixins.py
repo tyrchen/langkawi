@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User, AnonymousUser
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import importlib
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import TemplateResponseMixin
@@ -42,6 +42,22 @@ class CommonMixin(TemplateResponseMixin):
                 return settings.LOGIN_REDIRECT_URL % {'pk':request.user.pk}
             return '/'
 
+    def get_customized_response(self, request):
+        """
+        :param request:
+        :return: customized response
+        """
+        if 'customized' in request.session:
+            customized = request.session['customized']
+            del request.session['customized']
+            return customized
+        elif 'customized' in request.GET:
+            return request.GET.get('customized')
+        elif 'customized' in request.POST:
+            return request.POST.get('customized')
+        else:
+            return None
+
     def authenticate(self, **kwargs):
         """
         Authenticate a user against all configured authentication backends.
@@ -68,6 +84,9 @@ class CommonMixin(TemplateResponseMixin):
         """
         Redirect the user back to the ``next`` session/request variable.
         """
+        response = self.get_customized_response(request)
+        if response:
+            return HttpResponse(response)
         return HttpResponseRedirect(self.get_next(request))
 
 

@@ -148,8 +148,8 @@ class Setup(SocialRegistration, View):
 
         self.delete_session_data(request)
 
-        return HttpResponseRedirect(self.get_next(request))
-
+        #return HttpResponseRedirect(self.get_next(request))
+        return self.redirect(request)
 
 class Logout(View):
     """
@@ -181,7 +181,9 @@ class OAuthRedirect(SocialRegistration, View):
         Create a client, store it in the user's session and redirect the user
         to the API provider to authorize our app and permissions.
         """
+        request.session['customized'] = self.get_customized_response(request)
         request.session['next'] = self.get_next(request)
+
         client = self.get_client()()
         request.session[self.get_client().get_session_key()] = client
         try:
@@ -273,9 +275,7 @@ class SetupCallback(SocialRegistration, View):
         # Logged out user - let's see if we've got the identity saved already.
         # If so - just log the user in. If not, create profile and redirect
         # to the setup views
-        #pprint('uid is %s' % self.uid)
         user = self.authenticate(**self.uid)
-        #pprint(user.__dict__)
         # No user existing - create a new one and redirect to the final setup view
         if user is None:
             if INVITE_MODE and not 'invite_code' in request.session:
@@ -286,7 +286,6 @@ class SetupCallback(SocialRegistration, View):
             self.store_user(request, user)
             self.store_profile(request, profile)
             self.store_client(request, client)
-
             return HttpResponseRedirect(reverse('langkawi:setup'))
 
         # Inactive user - displaying / redirect to the appropriate place.
@@ -298,5 +297,4 @@ class SetupCallback(SocialRegistration, View):
 
         profile = self.get_profile(user=user, **lookup_kwargs)
         self.send_login_signal(request, user, profile, client)
-
         return self.redirect(request)

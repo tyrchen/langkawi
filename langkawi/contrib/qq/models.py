@@ -4,16 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
 from langkawi.signals import connect
+from langkawi.models import BaseProfile
 
+class QQProfile(BaseProfile):
 
-class QQProfile(models.Model):
-
-    user = models.ForeignKey(User, unique=True)
-    site = models.ForeignKey(Site, default=Site.objects.get_current)
     openid = models.CharField(max_length=100)
     name = models.CharField(max_length=50, default='', blank=True)
     gender = models.CharField(max_length=10,default='', blank=True)
-    profile_image_url = models.URLField(default='', blank=True)
 
     class Meta:
         db_table = 'social_qqprofile'

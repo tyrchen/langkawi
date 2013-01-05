@@ -3,14 +3,12 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from django.db import models
 from langkawi.signals import connect
+from langkawi.models import BaseProfile
 
+class RenrenProfile(BaseProfile):
 
-class RenrenProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    site = models.ForeignKey(Site, default=Site.objects.get_current)
     uid = models.CharField(max_length=20)
     name = models.CharField(max_length=50,blank=True, default='')
-    profile_image_url = models.URLField(blank=True, default='')
 
     class Meta:
         db_table = 'social_renrenprofile'

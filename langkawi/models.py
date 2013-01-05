@@ -1,6 +1,6 @@
-#from django.db import models
-#from django.contrib.auth.models import User
-#from django.contrib.sites.models import Site
+from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 
 
 #class FriendsRelationship(models.Model):
@@ -12,3 +12,14 @@
 
 #   def __unicode__(self):
 #        return u'%s has friend: %s in %s' % (self.user, self.friend_id, self.third_part)
+
+
+class BaseProfile(models.Model):
+
+    user = models.ForeignKey(User, unique=True)
+    site = models.ForeignKey(Site, default=Site.objects.get_current)
+    profile_image_url = models.URLField(blank=True, default='')
+    status = models.SmallIntegerField(default=0) #0 unbinding #1 binding #2 loggedIn
+
+    class Meta:
+        abstract = True
