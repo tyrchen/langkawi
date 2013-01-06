@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.contrib.auth import logout
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.utils import simplejson
 from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from langkawi.clients.oauth import OAuthError
@@ -136,6 +137,9 @@ class Setup(SocialRegistration, View):
         user = profile.authenticate()
 
         #client.create_friendships(user, profile)
+        # Profile Status - Login status
+        profile.status = 2
+        profile.save()
 
         if not user.is_active:
             return self.inactive_response(request, user)
@@ -148,8 +152,8 @@ class Setup(SocialRegistration, View):
 
         self.delete_session_data(request)
 
-        #return HttpResponseRedirect(self.get_next(request))
         return self.redirect(request)
+
 
 class Logout(View):
     """
@@ -257,7 +261,7 @@ class SetupCallback(SocialRegistration, View):
         try:
             client = request.session[self.get_client().get_session_key()]
         except KeyError:
-            return self.render_to_response({'error': "Session expired."})
+            return self.render_to_response({'error': "Session expired..."})
 
         # Get the lookup dictionary to find the user's profile
         lookup_kwargs = self.get_lookup_kwargs(request, client)
@@ -265,6 +269,13 @@ class SetupCallback(SocialRegistration, View):
         if request.user.is_authenticated():
             profile, created = self.get_or_create_profile(request.user,
                 save=True, **lookup_kwargs)
+            # Profile Status - Binding an exist user
+            if created:
+                profile.status = 1
+                profile.save()
+            elif 'next' in request.session:
+                request.session['next'] = request.session['next'] + "?ok=false&account=%s" % \
+                    profile.user.email
 
             # Profile existed - but got reconnected. Send the signal and
             # send the 'em where they were about to go in the first place.
@@ -298,3 +309,14 @@ class SetupCallback(SocialRegistration, View):
         profile = self.get_profile(user=user, **lookup_kwargs)
         self.send_login_signal(request, user, profile, client)
         return self.redirect(request)
+
+class UnbindingView(SocialRegistration, View):
+
+    def post(self, request):
+        if request.POST['unbind'] == '1' and request.user:
+            status, code = self.unbind_profile(request.user)
+            return HttpResponse(simplejson.dumps({'status':status, 'code':code}))
+        else:
+            return HttpResponse(simplejson.dumps({'status': False}))
+
+

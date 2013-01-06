@@ -179,6 +179,20 @@ class ProfileMixin(object):
             return profile, True
 
 
+    def unbind_profile(self, user):
+        """
+        unbind a profile
+        """
+        try:
+            profile = self.get_model().objects.get(user=user)
+            if profile.status == 2:
+                return False,1
+            profile.delete()
+            return True,0
+        except self.get_model().DoesNotExist:
+            return False,0
+
+
 class SessionMixin(object):
     """
     When a new user is signing up the user and profile models and api client
