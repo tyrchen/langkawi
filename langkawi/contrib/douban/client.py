@@ -48,7 +48,6 @@ class Douban(OAuth2):
             'profile_image_url': response['avatar'],
             'desc': response['desc']}
             self._user_info.update(self._uid)
-            pprint(self._user_info)
         return self._uid, self._user_info
 
     def create_friendships(self, user, profile):
